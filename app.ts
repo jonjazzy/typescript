@@ -1,25 +1,31 @@
-type CombinedTypes = number | string;
-type ConversionDescriptor = 'as-number' | 'as-text';
+// Function as Types
 
-function combine(
-    input1: CombinedTypes,
-    input2: CombinedTypes,
-    resultType: ConversionDescriptor)
+function add(n1: number, n2: number)
 {
-    let result: number | string;
-
-    if(typeof input1 == 'number' && typeof input2 == 'number' || resultType == 'as-number')
-    {
-        result = +input2 + +input1;
-    }
-    else
-    {
-        result = input1.toString() + input2.toString();
-    }
-
-    return result;
+    return n1 + n2;
 }
 
-console.log(combine(1, 2, "as-number"));
-console.log(combine("One", "Two", "as-text"));
-console.log(combine("1", 2, "as-number"));
+function takeNothingReturnSomething()
+{
+    return Math.random() * 1000;
+}
+
+// Function
+let combineValues = add;
+
+console.log("Function");
+console.log(combineValues(3,6));
+
+// () => number (i.e. return)
+let combineValues2: () => number;
+combineValues2 = takeNothingReturnSomething;
+console.log("combineValues2: () => number;");
+console.log(combineValues2());
+
+// (a: number, b: number) => number
+let combineValues3: (a:number, b:number) => number = add;
+console.log("(a: number, b: number) => number");
+console.log(combineValues3(1,2));
+
+
+// Function Types and Callbacks
